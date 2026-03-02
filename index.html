@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nitrogen Gym</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+    margin:0;
+    background:black;
+    font-family:'Oswald', sans-serif;
+    color:red;
+}
+
+/* HEADER IMAGE */
+.header-img{
+    width:100%;
+    height:350px;
+    background:url('header.jpg') center/cover no-repeat;
+}
+
+/* ADDED TITLE (NEW) */
+.equipment-heading{
+    text-align:center;
+    font-size:38px;
+    margin:40px 0;
+    letter-spacing:3px;
+}
+
+/* EQUIPMENT GRID (UNCHANGED STYLE) */
+.equipment-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:30px;
+    padding:0 40px 60px 40px;
+}
+
+.equipment-box{
+    border:2px solid red;
+    border-radius:25px;
+    padding:30px 20px;
+    text-align:center;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.equipment-box:hover{
+    background:#111;
+    transform:scale(1.05);
+}
+
+.equipment-box h3{
+    font-size:26px;
+    margin:0;
+}
+
+/* ========================= */
+/* MODAL OVERLAY (NEW ONLY) */
+/* ========================= */
+
+.overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.9);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+.overlay-content{
+    width:85%;
+    max-width:900px;
+    background:black;
+    border:2px solid red;
+    border-radius:25px;
+    padding:40px;
+    max-height:85vh;
+    overflow-y:auto;
+    position:relative;
+}
+
+.close-btn{
+    position:absolute;
+    top:15px;
+    right:20px;
+    font-size:28px;
+    cursor:pointer;
+}
+
+.overlay-content h2{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.exercise-item{
+    margin-bottom:35px;
+}
+
+.exercise-item h4{
+    font-size:22px;
+    margin-bottom:10px;
+}
+
+.image-space{
+    width:100%;
+    height:200px;
+    border:1px dashed red;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:16px;
+}
+
+/* PLANS & LOCATION (UNCHANGED) */
+.section{
+    padding:60px 40px;
+    text-align:center;
+    border-top:1px solid red;
+}
+
+a{
+    color:red;
+    text-decoration:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header-img"></div>
+
+<!-- ADDED TEXT -->
+<div class="equipment-heading">
+EQUIPMENT AVAILABLE
+</div>
+
+<!-- EQUIPMENT SECTION (SAME STRUCTURE, JUST ADDED onclick) -->
+
+<div class="equipment-container">
+
+<div class="equipment-box" onclick="openOverlay('Dumbbells')">
+<h3>Dumbbells</h3>
+</div>
+
+<div class="equipment-box" onclick="openOverlay('Treadmill')">
+<h3>Treadmill</h3>
+</div>
+
+<div class="equipment-box" onclick="openOverlay('Cable Machine')">
+<h3>Cable Machine</h3>
+</div>
+
+<div class="equipment-box" onclick="openOverlay('Bench Press')">
+<h3>Bench Press</h3>
+</div>
+
+<div class="equipment-box" onclick="openOverlay('Lat Pulldown')">
+<h3>Lat Pulldown</h3>
+</div>
+
+</div>
+
+<!-- OVERLAY SECTION (NEW) -->
+
+<div class="overlay" id="equipmentOverlay">
+<div class="overlay-content">
+
+<div class="close-btn" onclick="closeOverlay()">❌</div>
+
+<h2 id="overlayTitle"></h2>
+
+<div id="overlayExercises"></div>
+
+</div>
+</div>
+
+<!-- PLANS SECTION (UNCHANGED) -->
+<div class="section">
+<h2>PLANS</h2>
+<p>Joining – 1500/-</p>
+<p>Monthly – 600/-</p>
+</div>
+
+<!-- LOCATION SECTION (UNCHANGED) -->
+<div class="section">
+<h2>LOCATION</h2>
+<a href="https://maps.app.goo.gl/AsagDupfQSvw7a4j6?g_st=aw" target="_blank">
+Open in Google Maps
+</a>
+</div>
+
+<script>
+
+const exerciseData = {
+
+"Dumbbells":[
+"Shoulder Press",
+"Bicep Curl",
+"Lunges"
+],
+
+"Treadmill":[
+"Walking",
+"Jogging",
+"Sprint Intervals"
+],
+
+"Cable Machine":[
+"Cable Fly",
+"Tricep Pushdown",
+"Cable Row"
+],
+
+"Bench Press":[
+"Flat Bench Press",
+"Incline Bench Press",
+"Dumbbell Press"
+],
+
+"Lat Pulldown":[
+"Wide Grip Pulldown",
+"Close Grip Pulldown",
+"Reverse Grip Pulldown"
+]
+
+};
+
+function openOverlay(name){
+document.getElementById("overlayTitle").innerText = name;
+
+let container = document.getElementById("overlayExercises");
+container.innerHTML = "";
+
+exerciseData[name].forEach(ex=>{
+container.innerHTML += `
+<div class="exercise-item">
+<h4>${ex}</h4>
+<div class="image-space">
+Add Exercise Image Here
+</div>
+</div>
+`;
+});
+
+document.getElementById("equipmentOverlay").style.display="flex";
+}
+
+function closeOverlay(){
+document.getElementById("equipmentOverlay").style.display="none";
+}
+
+</script>
+
+</body>
+</html>
